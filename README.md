@@ -15,3 +15,11 @@
 | 13      | Deployment Preparation        | **Emirhan**        |
 | 14      | Final Deployment              | **Emirhan**        |
 | 15      | Project Documentation         | **Baran, Emirhan** |
+
+
+| Name        | Role                     |          Responsibilities                                                              |
+| ----------- | ------------------------ | -------------------------------------------------------------------------------------- |
+| **Baran**   | Project Manager          | Oversees all tasks, manages risks, environment setup, documentation                    |
+| **Efe**     | Lead Developer / Backend | Backend development, database design, system architecture                              |
+| **Berk**    | Frontend Developer       | UI/UX prototyping, frontend development                                                |
+| **Emirhan** | Support & Testing        | Testing activities, bug tracking, deployment support, documentation                    |
