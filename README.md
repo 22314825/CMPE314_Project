@@ -12,7 +12,7 @@
 | 10      | Testing (Unit + Integration)  | **Berk, Emirhan**  |
 | 11      | User Acceptance Testing       | **Emirhan, Baran** |
 | 12      | Bug Fixing                    | **Efe, Berk**      |
-| 13      | Deployment Preparation        | **Emirhan**        |
+| 13      | Deployment Preparation        | **Emirhan, Baran** |
 | 14      | Final Deployment              | **Emirhan**        |
 | 15      | Project Documentation         | **Baran, Emirhan** |
 
