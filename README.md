@@ -1,3 +1,6 @@
+# CMPE314-Software Engineering Project
+**Topic:** Task Management Tool
+
 | Task ID | Task Name                     | Assigned Person    |
 | ------- | ----------------------------- | ------------------ |
 | 1       | Requirements Gathering        | **Baran**          |
