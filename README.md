@@ -1,5 +1,6 @@
 # CMPE314-Software Engineering Project
 **Topic:** Task Management Tool
+**Project Title:** Vertex KANBAN System
 
 | Task ID | Task Name                     | Assigned Person    |
 | ------- | ----------------------------- | ------------------ |
