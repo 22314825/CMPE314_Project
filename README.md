@@ -16,7 +16,7 @@
 | 11      | User Acceptance Testing       | **Emirhan, Baran** |
 | 12      | Bug Fixing                    | **Efe, Berk**      |
 | 13      | Deployment Preparation        | **Emirhan, Baran** |
-| 14      | Final Deployment              | **Emirhan**        |
+| 14      | Final Deployment              | **Baran**        |
 | 15      | Project Documentation         | **Baran, Emirhan** |
 
 
