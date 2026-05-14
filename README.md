@@ -20,6 +20,8 @@
 | 14      | Final Deployment              | **Baran**        |
 | 15      | Project Documentation         | **Baran, Emirhan** |
 
+---
+
 
 | Name        | Role                     |          Responsibilities                                                              |
 | ----------- | ------------------------ | -------------------------------------------------------------------------------------- |
@@ -27,3 +29,15 @@
 | **Efe**     | Lead Developer / Backend | Backend development, database design, system architecture                              |
 | **Berk**    | Frontend Developer       | UI/UX prototyping, frontend development                                                |
 | **Emirhan** | Support & Testing        | Testing activities, bug tracking, deployment support, documentation                    |
+
+---
+
+### Lab 5 Description 
+Parallelism :These are parallelism fork parts: "Update inventory", "Send return confirmation notification", "Physical place book back on shelf", and they run concurrently.
+
+Decisions: This is an if-else statement, a decision-making moment; one of the options is chosen.
+[Decision] Is book valid?
+If No → Display error / Reject book → End
+If Yes → Continue
+
+
