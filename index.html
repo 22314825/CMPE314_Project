@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Vertex KANBAN System - A web-based task management tool with Kanban board for teams">
+  <title>Vertex KANBAN System</title>
+  <link rel="icon" type="image/png" href="logokanban.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ═══════════ AUTH VIEW ═══════════ -->
+  <div class="auth-view active" id="authView">
+    <div class="auth-bg"></div>
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-logo">
+          <img src="logokanban.png" alt="Vertex Kanban" style="width:120px;height:120px;object-fit:contain;margin:0 auto 12px;border-radius:16px">
+          <p>Task Management System</p>
+        </div>
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="login" id="loginTab">Login</button>
+          <button class="auth-tab" data-tab="register" id="registerTab">Register</button>
+        </div>
+
+        <!-- Login Form -->
+        <form class="auth-form" id="loginForm">
+          <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input type="email" class="form-input" id="loginEmail" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input type="password" class="form-input" id="loginPassword" placeholder="Enter password" required>
+          </div>
+          <div class="form-error" id="loginError"></div>
+          <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        </form>
+
+        <!-- Register Form -->
+        <form class="auth-form hidden" id="registerForm">
+          <div class="form-group">
+            <label for="regName">Full Name</label>
+            <input type="text" class="form-input" id="regName" placeholder="John Doe" required>
+          </div>
+          <div class="form-group">
+            <label for="regEmail">Email</label>
+            <input type="email" class="form-input" id="regEmail" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="regPassword">Password</label>
+            <input type="password" class="form-input" id="regPassword" placeholder="Min 4 characters" required minlength="4">
+          </div>
+          <div class="form-error" id="regError"></div>
+          <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ APP VIEW ═══════════ -->
+  <div class="app-view" id="appView">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <img src="logokanban.png" alt="Vertex" style="width:36px;height:36px;border-radius:8px;object-fit:contain">
+          <div>
+            <h2>VERTEX</h2>
+            <span>Kanban System</span>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Projects</div>
+        <div class="project-list" id="projectList"></div>
+        <button class="add-task-btn" id="addProjectBtn" style="margin-top:10px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Project
+        </button>
+      </div>
+      <!-- Info Guide Section -->
+      <div class="sidebar-section sidebar-guide open" id="sidebarGuide">
+        <button class="sidebar-guide-toggle" id="guideToggle">
+          <span style="display:flex;align-items:center;gap:6px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            How to Use
+          </span>
+          <svg class="guide-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="guide-content" id="guideContent">
+          <div class="guide-item">
+            <div class="guide-icon">📋</div>
+            <div>
+              <strong>Kanban Board</strong>
+              <p>Organize tasks across three columns: To Do, In Progress, and Done.</p>
+            </div>
+          </div>
+          <div class="guide-item">
+            <div class="guide-icon">🖱️</div>
+            <div>
+              <strong>Drag & Drop</strong>
+              <p>Move tasks between columns by dragging cards to update their status.</p>
+            </div>
+          </div>
+          <div class="guide-item">
+            <div class="guide-icon">➕</div>
+            <div>
+              <strong>Create Tasks</strong>
+              <p>Click "+ Add Task" at the bottom of any column. Set title, priority, due date, and assignees.</p>
+            </div>
+          </div>
+          <div class="guide-item">
+            <div class="guide-icon">👥</div>
+            <div>
+              <strong>Multi-Assignee</strong>
+              <p>Assign multiple team members to a task. Type a name and press Enter to add.</p>
+            </div>
+          </div>
+          <div class="guide-item">
+            <div class="guide-icon">🔔</div>
+            <div>
+              <strong>Notifications</strong>
+              <p>Get notified on task changes. Click a notification to jump to the related task.</p>
+            </div>
+          </div>
+          <div class="guide-item">
+            <div class="guide-icon">⏰</div>
+            <div>
+              <strong>Reminders</strong>
+              <p>Set reminders on tasks. You'll get alerts when the time arrives.</p>
+            </div>
+          </div>
+          <div class="guide-item">
+            <div class="guide-icon">🔍</div>
+            <div>
+              <strong>Search & Filter</strong>
+              <p>Use the search bar and priority/assignee filters in the top bar to find tasks quickly.</p>
+            </div>
+          </div>
+          <div class="guide-item">
+            <div class="guide-icon">📁</div>
+            <div>
+              <strong>Projects</strong>
+              <p>Create multiple projects. Click a project to switch. Right-click to delete.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-footer">
+        <div class="sidebar-user" id="sidebarUser">
+          <div class="avatar" id="userAvatar"></div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" id="userName"></div>
+            <div style="font-size:11px;color:var(--text-muted)" id="userEmail"></div>
+          </div>
+          <button class="btn-icon btn-ghost" id="logoutBtn" title="Logout">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Top Bar -->
+      <div class="topbar">
+        <button class="btn-icon btn-ghost" id="menuToggle" style="display:none">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="topbar-title" id="topbarTitle">Select a Project</div>
+        <div class="search-box" id="searchBox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Search tasks..." id="searchInput">
+        </div>
+        <div class="filter-group">
+          <select class="filter-select" id="filterPriority">
+            <option value="">All Priorities</option>
+            <option value="critical">Critical</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+          <select class="filter-select" id="filterAssignee">
+            <option value="">All Members</option>
+          </select>
+          <datalist id="assigneeSuggestions"></datalist>
+        </div>
+        <button class="btn-icon btn-ghost notification-btn" id="notifBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span class="badge" id="notifBadge" style="display:none">0</span>
+        </button>
+      </div>
+
+      <!-- Kanban Board -->
+      <div class="board" id="board">
+        <!-- TO DO Column -->
+        <div class="column" data-status="todo" id="colTodo">
+          <div class="column-header">
+            <div class="column-status" style="background:var(--status-todo)"></div>
+            <div class="column-title">To Do</div>
+            <div class="column-count" id="countTodo">0</div>
+          </div>
+          <div class="column-body" id="bodyTodo"></div>
+          <div class="column-footer">
+            <button class="add-task-btn" data-status="todo">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Task
+            </button>
+          </div>
+        </div>
+
+        <!-- IN PROGRESS Column -->
+        <div class="column" data-status="inprogress" id="colProgress">
+          <div class="column-header">
+            <div class="column-status" style="background:var(--status-progress)"></div>
+            <div class="column-title">In Progress</div>
+            <div class="column-count" id="countProgress">0</div>
+          </div>
+          <div class="column-body" id="bodyProgress"></div>
+          <div class="column-footer">
+            <button class="add-task-btn" data-status="inprogress">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Task
+            </button>
+          </div>
+        </div>
+
+        <!-- DONE Column -->
+        <div class="column" data-status="done" id="colDone">
+          <div class="column-header">
+            <div class="column-status" style="background:var(--status-done)"></div>
+            <div class="column-title">Done</div>
+            <div class="column-count" id="countDone">0</div>
+          </div>
+          <div class="column-body" id="bodyDone"></div>
+          <div class="column-footer">
+            <button class="add-task-btn" data-status="done">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Task
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TASK MODAL ═══════════ -->
+  <div class="modal-overlay" id="taskModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="taskModalTitle">Create Task</h3>
+        <button class="modal-close" id="taskModalClose">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="taskForm">
+          <div class="form-group">
+            <label for="taskTitle">Title *</label>
+            <input type="text" class="form-input" id="taskTitle" placeholder="Enter task title" required>
+          </div>
+          <div class="form-group">
+            <label for="taskDesc">Description</label>
+            <textarea class="form-input" id="taskDesc" placeholder="Describe the task..." rows="3"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="taskPriority">Priority</label>
+              <select class="form-input" id="taskPriority">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+                <option value="critical">Critical</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="taskStatus">Status</label>
+              <select class="form-input" id="taskStatus">
+                <option value="todo">To Do</option>
+                <option value="inprogress">In Progress</option>
+                <option value="done">Done</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="taskDue">Due Date *</label>
+              <input type="date" class="form-input" id="taskDue" required>
+              <div class="field-error" id="dueDateError">Due date is required</div>
+            </div>
+            <div class="form-group">
+              <label>Assignee(s) *</label>
+              <div style="position:relative">
+                <div class="tag-input-wrap" id="assigneeWrap">
+                  <input type="text" id="assigneeInput" placeholder="Type a name & press Enter..." autocomplete="off">
+                </div>
+                <div class="tag-suggestions" id="assigneeSuggestionsDropdown"></div>
+              </div>
+              <div class="field-error" id="assigneeError">At least one assignee is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="taskReminder">Reminder</label>
+            <input type="datetime-local" class="form-input" id="taskReminder">
+          </div>
+          <input type="hidden" id="taskId">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="taskModalCancel">Cancel</button>
+        <button class="btn btn-primary" id="taskModalSave">Create Task</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PROJECT MODAL ═══════════ -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>New Project</h3>
+        <button class="modal-close" id="projectModalClose">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="projectForm">
+          <div class="form-group">
+            <label for="projectName">Project Name *</label>
+            <input type="text" class="form-input" id="projectName" placeholder="My Project" required>
+          </div>
+          <div class="form-group">
+            <label for="projectDesc">Description</label>
+            <textarea class="form-input" id="projectDesc" placeholder="Brief project description..." rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="projectColor">Color</label>
+            <div style="display:flex;gap:8px;flex-wrap:wrap" id="colorPicker">
+              <button type="button" class="color-dot active" data-color="#06b6d4" style="width:28px;height:28px;border-radius:50%;background:#06b6d4;border:2px solid transparent;cursor:pointer;transition:var(--transition)"></button>
+              <button type="button" class="color-dot" data-color="#8b5cf6" style="width:28px;height:28px;border-radius:50%;background:#8b5cf6;border:2px solid transparent;cursor:pointer;transition:var(--transition)"></button>
+              <button type="button" class="color-dot" data-color="#f59e0b" style="width:28px;height:28px;border-radius:50%;background:#f59e0b;border:2px solid transparent;cursor:pointer;transition:var(--transition)"></button>
+              <button type="button" class="color-dot" data-color="#ef4444" style="width:28px;height:28px;border-radius:50%;background:#ef4444;border:2px solid transparent;cursor:pointer;transition:var(--transition)"></button>
+              <button type="button" class="color-dot" data-color="#22c55e" style="width:28px;height:28px;border-radius:50%;background:#22c55e;border:2px solid transparent;cursor:pointer;transition:var(--transition)"></button>
+              <button type="button" class="color-dot" data-color="#ec4899" style="width:28px;height:28px;border-radius:50%;background:#ec4899;border:2px solid transparent;cursor:pointer;transition:var(--transition)"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="projectModalCancel">Cancel</button>
+        <button class="btn btn-primary" id="projectModalSave">Create Project</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ NOTIFICATION PANEL ═══════════ -->
+  <div class="notif-panel" id="notifPanel">
+    <div class="notif-header">
+      <h3>Notifications</h3>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn btn-ghost btn-sm" id="clearNotifs">Clear All</button>
+        <button class="notif-close-btn" id="notifCloseBtn" title="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="notif-list" id="notifList">
+      <div class="notif-empty">No notifications yet</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ CONFIRM DIALOG ═══════════ -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-dialog">
+      <h4 id="confirmTitle">Are you sure?</h4>
+      <p id="confirmMsg">This action cannot be undone.</p>
+      <div class="confirm-actions">
+        <button class="btn btn-ghost" id="confirmCancel">Cancel</button>
+        <button class="btn btn-danger" id="confirmOk">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TASK DETAIL MODAL ═══════════ -->
+  <div class="modal-overlay" id="taskDetailModal">
+    <div class="modal" style="max-width:560px">
+      <div class="modal-header">
+        <h3 id="detailTitle">Task Details</h3>
+        <button class="modal-close" id="detailClose">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="detailBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-danger btn-sm" id="detailDelete">🗑️ Delete</button>
+        <button class="btn btn-ghost" id="detailEdit">✏️ Edit</button>
+        <button class="btn btn-primary" id="detailDone">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TOAST CONTAINER ═══════════ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/project.js"></script>
+  <script src="js/task.js"></script>
+  <script src="js/notification.js"></script>
+  <script src="js/board.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
