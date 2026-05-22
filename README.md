@@ -9,7 +9,7 @@
 | 3       | System Architecture Design    | **Efe**            |
 | 4       | Database Design               | **Berk, Efe**      |
 | 5       | UI/UX Prototyping             | **Berk**           |
-| 6       | Setup Development Environment | **Emirhan**        |
+| 6       | Setup Development Environment | **Baran**          |
 | 7       | Frontend Development          | **Berk**           |
 | 8       | Backend Development           | **Efe**            |
 | 9       | API Integration               | **Efe, Berk**      |
